@@ -7,6 +7,8 @@ use App\Rules\UniqueByPin;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
+
 
 class StoreUser extends FormRequest
 {
@@ -20,6 +22,23 @@ class StoreUser extends FormRequest
         return true;
     }
 
+    protected function failedValidation(Validator $validator)
+    {
+        if ($this->is('api*')) {
+            $errors = $validator->errors();
+            $response = new Response();
+            $response->status = 0;
+            $response->message="There are errors";
+            $response->errors=$errors;
+            throw new HttpResponseException(response()->json($response));
+        }else{
+            throw (new ValidationException($validator))
+                    ->errorBag($this->errorBag)
+                    ->redirectTo($this->getRedirectUrl());
+        }
+
+        // throw new HttpResponseException(response()->json($validator->errors()->all(), 422));
+    }
     /**
      * Get the validation rules that apply to the request.
      *
@@ -32,18 +51,5 @@ class StoreUser extends FormRequest
             'pincode'   =>  'required|digits:6',
             'email'     =>  ['required','max:254','email:rfc,dns',new UniqueByPin($this->pincode)],
         ];
-    }
-    protected function failedValidation(Validator $validator)
-    {
-        $errors = $validator->errors();
-            $response = new Response();
-
-            $response->status = 0;
-            $response->message="There are errors";
-            $response->errors=$errors;
-
-        throw new HttpResponseException(response()->json($response));
-
-        // throw new HttpResponseException(response()->json($validator->errors()->all(), 422));
     }
 }

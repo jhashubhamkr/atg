@@ -15,12 +15,7 @@ trait AddUser {
     }
     public function addUser(StoreUser $request)
     {
-    	//validate the request parameters
-    	$this->validate($request,[
-    		'name'		=>	'required|max:30',
-    		'pincode'	=>	'required|digits:6',
-            'email'     =>  ['required','max:254','email:rfc,dns',new UniqueByPin($request->pincode)],
-    	]);        
+    	//validate the request parameters    
 
     	//create an object of the model ATG
     	$user=new ATG();
