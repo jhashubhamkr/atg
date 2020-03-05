@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Traits\AddUser;
+use App\Http\Requests\StoreUser;
 
 class ATGController extends Controller
 {
@@ -18,7 +19,7 @@ class ATGController extends Controller
     	//show the view with user form
     	return view('atg.create');
     }
-    public function store(Request $request)
+    public function store(StoreUser $request)
     {
     	$user=$this->addUser($request);
         

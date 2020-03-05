@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Traits\AddUser;
+use App\Http\Requests\StoreUser;
+use Illuminate\Http\Response;
 
 class WebServicesController extends Controller
 {
@@ -22,14 +24,15 @@ class WebServicesController extends Controller
 
         return $response;
     }
-    public function store(Request $request)
+    public function store(StoreUser $request)
     {
     	$user=$this->addUser($request);
     	
-    	$response['status']=1;
-    	$response['message']="Success";
-    	$response['data']=$user;
+    	$response = new Response();
+        $response->status = 1;
+    	$response->message="Success";
+    	$response->data=$user;
 
-    	return $response;
+    	return json_encode($response);
     }
 }
