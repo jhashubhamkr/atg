@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\ATG;
-use App\Rules\UniqueByPin;
+use App\Traits\AddUser;
 
 class ATGController extends Controller
 {
+    use AddUser;
     public function index()
     {
-        //fetch all users in descending order
-        $users=ATG::orderBy('created_at',"desc")->get();
+        $users=$this->getUsers();
         return view('atg.index',compact('users'));
     }
     public function create()
@@ -21,24 +20,8 @@ class ATGController extends Controller
     }
     public function store(Request $request)
     {
-    	//validate the request parameters
-    	$this->validate($request,[
-    		'name'		=>	'required|max:30',
-    		'pincode'	=>	'required|digits:6',
-            'email'     =>  ['required','max:254','email:rfc,dns',new UniqueByPin($request->pincode)],
-    	]);        
-
-    	//create an object of the model ATG
-    	$user=new ATG();
-
-    	//add validated values to new object
-    	$user->name=$request->name;
-    	$user->email=$request->email;
-    	$user->pincode=$request->pincode;
-    	
-    	//save the user object in DB table
-    	$user->save();
-
+    	$user=$this->addUser($request);
+        
     	//redirect user to new page with success message
     	return redirect()->route('atg.index')->withSuccess("$user->name addedd successfully");
     }

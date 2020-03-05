@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::post('/deliverables/tasks','WebServicesController@store')->name('atg.store');
+Route::get('/deliverables/tasks','WebServicesController@index')->name('atg.index');
