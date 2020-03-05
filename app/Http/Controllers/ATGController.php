@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ATG;
+use App\Rules\UniqueByPin;
 
 class ATGController extends Controller
 {
@@ -23,10 +24,10 @@ class ATGController extends Controller
     	//validate the request parameters
     	$this->validate($request,[
     		'name'		=>	'required|max:30',
-    		'email'		=>	'required|max:254|email:rfc,dns|unique:atgs',
-    		'pincode'	=>	'required|digits:6'
-    	]);
-    	
+    		'pincode'	=>	'required|digits:6',
+            'email'     =>  ['required','max:254','email:rfc,dns',new UniqueByPin($request->pincode)],
+    	]);        
+
     	//create an object of the model ATG
     	$user=new ATG();
 
