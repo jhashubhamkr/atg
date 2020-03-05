@@ -39,6 +39,7 @@ class StoreUser extends FormRequest
             $response = new Response();
 
             $response->status = 0;
+            $response->message="There are errors";
             $response->errors=$errors;
 
         throw new HttpResponseException(response()->json($response));
