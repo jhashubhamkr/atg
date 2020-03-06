@@ -63,6 +63,11 @@ input{
 .form-submit>button:hover{
 	background: #ffa123;
 }
+.form-submit>button:disabled{
+	background: #ccc;
+	color: #fff;
+	cursor: not-allowed;
+}
 .error{
 	color: #ff0000;
 	display: block;
@@ -123,4 +128,30 @@ th{
 	text-align: left;
 }
 tr{
+}
+.loader-parent{
+	position: fixed;
+	display: none;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0,0,0,0.15);
+}
+.loader {
+	border: 10px solid #f3f3f3;
+	border-radius: 50%;
+	border-top: 10px solid #ffc123;
+	width: 75px;
+	height: 75px;
+	/*position: absolute;*/
+	margin:0 auto;
+	margin-top: 300px;
+	-webkit-animation: spin 2s linear infinite; /* Safari */
+	animation: spin 2s linear infinite;
+	box-shadow: 0 0 15px rgba(0,0,0,0.25);
+	}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
 }

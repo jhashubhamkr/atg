@@ -19,6 +19,10 @@ class ATGController extends Controller
     	//show the view with user form
     	return view('atg.create');
     }
+    public function createAjax()
+    {
+        return view('atg.createAjax');
+    }
     public function store(StoreUser $request)
     {
     	$user=$this->addUser($request);

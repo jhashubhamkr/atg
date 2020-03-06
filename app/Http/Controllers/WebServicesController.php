@@ -30,7 +30,7 @@ class WebServicesController extends Controller
     	
     	$response = new Response();
         $response->status = 1;
-    	$response->message="Success";
+    	$response->message="$user->name was addedd successfully";
     	$response->data=$user;
 
     	return json_encode($response);

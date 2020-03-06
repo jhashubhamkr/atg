@@ -7,5 +7,8 @@
 		<a href="{{ route('atg.create') }}">
 			<li>Add User</li>
 		</a>
+		<a href="{{ route('atg.createAjax') }}">
+			<li>Add User (AJAX)</li>
+		</a>
 	</ul>
 </div>

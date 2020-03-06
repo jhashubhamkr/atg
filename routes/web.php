@@ -19,3 +19,5 @@ Route::get('/', function(){
 Route::get('/deliverables/tasks','ATGController@index')->name('atg.index');
 Route::post('/deliverables/tasks','ATGController@store')->name('atg.store');
 Route::get('/deliverables/tasks/create','ATGController@create')->name('atg.create');
+
+Route::get('/deliverables/tasks/createAjax','ATGController@createAjax')->name('atg.createAjax');

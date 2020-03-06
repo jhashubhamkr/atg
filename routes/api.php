@@ -17,5 +17,5 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::post('/deliverables/tasks','WebServicesController@store')->name('atg.store');
-Route::get('/deliverables/tasks','WebServicesController@index')->name('atg.index');
+Route::post('/deliverables/tasks','WebServicesController@store')->name('api.atg.store');
+Route::get('/deliverables/tasks','WebServicesController@index')->name('api.atg.index');
